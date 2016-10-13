@@ -22,7 +22,7 @@ after_script:
 - bundle exec rake deploy
 env:
   global:
-  - REPO="git@github.com:PGMY/blog"
+  - REPO="git@github.com:PGMY/applab"
   - secure: KbBrS3KAGgF3Yzgg8XmCQiuttoETuUJnMgXTpLa3LpWOOynz5Pcr+ItfkBX1ndnEXNhE0T7fvFFdW1w9SymKqFd1BxI+SCehASMg2HLehRxpgAnZHeIrnyqLTgLWeyafWpLofUoK2N7/fZJcvrfLAQ1vSuYuiY5Gw+zkozV8JIY=
   - secure: omDP0y6mhK7o3LKrRK6KS4+akba+HUU+Jym53ofizawIklXHxdgl8ScGJPiF9YlxhluJUn9v2YulZV+Zyou0UCC49tOz8nezR0OblUabDKgTXdKscVJzT/4+AGZYyfFVYQ2VE7783PG2hmZy+vDRTux00xLswXtsRdpN82Xqe8s=
   - secure: dbXYr2LnA2+TEYMZsffqzjK6xtuodP9KkJPHTxXRATJ6uEMOPqaboq9EHmafi1+SS/teQbxs6QkcI2z/8kfpi0ah41yYco7/BCW8STL/U/aRVFGYMULW0w3DjT7TiC7a3EbD+Op0//d9m+wIqWF8KNjnISMZ2BLNf8Df5IiQ0qc=
