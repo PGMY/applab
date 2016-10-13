@@ -1,0 +1,162 @@
+<script type="text/javascript">
+    var host = "sonalkeshav.me";
+if ((host == window.location.host) && (window.location.protocol != "https:"))
+    window.location.protocol = "https";
+</script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ root_url }}/assets/bootstrap/dist/css/roboto.min.css" rel="stylesheet">
+<link href="{{ root_url }}/assets/bootstrap/dist/css/material-fullpalette.min.css" rel="stylesheet">
+<link href="{{ root_url }}/assets/bootstrap/dist/css/ripples.min.css" rel="stylesheet">
+<link href="https://fezvrasta.github.io/snackbarjs/dist/snackbar.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script>
+    (function(){
+        var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function(){
+            var index =  $('.bs-component').index( $(this).parent() );
+            $.get(window.location.href, function(data){
+                var html = $(data).find('.bs-component').eq(index).html();
+                html = cleanSource(html);
+                $("#source-modal pre").text(html);
+                $("#source-modal").modal();
+            })
+        });
+        $('.bs-component [data-toggle="popover"]').popover();
+        $('.bs-component [data-toggle="tooltip"]').tooltip();
+        $(".bs-component").hover(function(){
+            $(this).append($button);
+            $button.show();
+        }, function(){
+            $button.hide();
+        });
+        function cleanSource(html) {
+            var lines = html.split(/\n/);
+            lines.shift();
+            lines.splice(-1, 1);
+            var indentSize = lines[0].length - lines[0].trim().length,
+                re = new RegExp(" {" + indentSize + "}");
+            lines = lines.map(function(line){
+                if (line.match(re)) {
+                    line = line.substring(indentSize);
+                }
+                return line;
+            });
+            lines = lines.join("\n");
+            return lines;
+        }
+        $(".icons-material .icon").each(function() {
+            $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+        });
+    })();
+</script>
+<script src="{{ root_url }}/assets/bootstrap/dist/js/ripples.min.js"></script>
+<script src="{{ root_url }}/assets/bootstrap/dist/js/material.min.js"></script>
+<script src="https://fezvrasta.github.io/snackbarjs/dist/snackbar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
+<script>
+    $(function() {
+        $.material.init();
+        $(".shor").noUiSlider({
+            start: 40,
+            connect: "lower",
+            range: {
+                min: 0,
+                max: 100
+            }
+        });
+        $(".svert").noUiSlider({
+            orientation: "vertical",
+            start: 40,
+            connect: "lower",
+            range: {
+                min: 0,
+                max: 100
+            }
+        });
+    });
+</script>
+
+{% capture description %}{% if page.description %}{{ page.description }}{% elsif site.description %}{{ site.description }}{%else%}{{ content | raw_content }}{% endif %}{% endcapture %}
+
+<!-- g+ meta tags -->
+    <meta itemprop="name" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}"/>
+    <meta itemprop="description" content="{{ description | strip_html | condense_spaces | truncate:200 }}"/>
+    <meta itemprop="image" content="{% if page.image %}{{ page.image }}{% else %}{{ site.favicon }}{% endif %}"/>
+
+<!-- facebook meta tags -->
+    <meta property="fb:admins" content="{{ site.facebook_insights }}"/>
+
+<!-- facebook opengraph -->
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}"/>
+    <meta property="og:site_name" content="{{ site.title }}"/>
+    <meta property="og:url" content="{% if canonical %}{{ canonical }}{% else %}{{ site.url }}{% endif %}"/>
+    <meta property="og:description" content="{{ description | strip_html | condense_spaces | truncate:200 }}"/>
+    <meta property="fb:app_id" content="{{ site.facebook_appID }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="article:author" content="{{ site.facebook_page_author }}"/>
+    <meta property="article:publisher" content="{{ site.facebook_page_publisher }}"/>
+    <meta property="og:image" content="{% if page.image %}{{ page.image }}{% else %}{{ site.favicon }}{% endif %}" />
+
+<!-- twitter cards -->
+    {% if page.twitter.card == 'summary_large_image' %}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="{{ site.twitter_user }}">
+        <meta name="twitter:title" content="{{ page.title }}">
+        <meta name="twitter:creator" content="{{ site.twitter_user }}">
+        <meta name="twitter:description" content="{{ description | strip_html | condense_spaces | truncate:200 }}">
+        <meta name="twitter:image" content="{{ page.twitter.image }}">
+    {% elsif page.twitter.card == 'app' %}
+        <meta name="twitter:card" content="app">
+        <meta name="twitter:site" content="{{ site.twitter_user }}">
+        <meta name="twitter:description" content="{{ description | strip_html | condense_spaces | truncate:200 }}">
+        <meta name="twitter:app:country" content="{{ page.twitter.country }}">
+        <meta name="twitter:app:name:iphone" content="{{ page.twitter.iphone.name }}">
+        <meta name="twitter:app:id:iphone" content="{{ page.twitter.iphone.id }}">
+        <meta name="twitter:app:url:iphone" content="{{ page.twitter.iphone.url }}">
+        <meta name="twitter:app:name:ipad" content="{{ page.twitter.ipad.name }}">
+        <meta name="twitter:app:id:ipad" content="{{ page.twitter.ipad.id }}">
+        <meta name="twitter:app:url:ipad" content="{{ page.twitter.ipad.url }}">
+        <meta name="twitter:app:name:googleplay" content="{{ page.twitter.googleplay.name }}">
+        <meta name="twitter:app:id:googleplay" content="{{ page.twitter.googleplay.id }}">
+        <meta name="twitter:app:url:googleplay" content="{{ page.twitter.googleplay.url }}">
+    {% else %}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="{{ site.twitter_user }}" />
+        <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+        <meta name="twitter:description" content="{{ description | strip_html | condense_spaces | truncate:200 }}" />
+        <meta name="twitter:image" content="{% if page.image %}{{ page.image }}{% else %}{{ site.favicon }}{% endif %}" />
+    {% endif %}
+
+<!-- SEO -->
+    <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{%else%}{{ site.keywords }}{% endif %}">
+    <meta name="description" content="{{ description | strip_html | condense_spaces | truncate:200 }}"/>
+
+<!--chrome tab color for android -->
+    <meta name="theme-color" content="#{{ site.chrome_color }}">
+
+<!-- favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ root_url }}/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ root_url }}/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ root_url }}/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ root_url }}/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ root_url }}/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ root_url }}/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ root_url }}/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ root_url }}/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="{{ root_url }}/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="{{ root_url }}/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="{{ root_url }}/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ root_url }}/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{{ root_url }}/favicons/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="Sonal Keshav"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{{ root_url }}/favicons/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="{{ root_url }}/favicons/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="{{ root_url }}/favicons/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="{{ root_url }}/favicons/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="{{ root_url }}/favicons/mstile-310x310.png" />
+    <meta name="msapplication-notification" content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed={{ site.url }}/atom.xml&amp;id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed={{ site.url }}/atom.xml&amp;id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed={{ site.url }}/atom.xml&amp;id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed={{ site.url }}/atom.xml&amp;id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed={{ site.url }}/atom.xml&amp;id=5;cycle=1" />
+
+<style type="text/css">a:link {color: #3F51B5;}a:visited {color: #673AB7;}a:hover {color: #3F51B5;}a:active {color: #3F51B5;}</style>

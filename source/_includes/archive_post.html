@@ -1,0 +1,22 @@
+<div class="blog-post-small">
+	{% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
+	{% capture category %}{{ post.categories | size }}{% endcapture %}
+	{% capture tag %}{{ post.tags | size }}{% endcapture %}
+	<time datetime="{{ post.date | datetime | date_to_xmlschema }}" pubdate>{{ post.date | date: "<span class='month'>%b</span>/<span class='day'>%d</span>"}} : </time>
+	<a href="{{ root_url }}{{ post.url }}">{{post.title}}</a>
+
+	{% if category != '0' || tag != '0' %}
+	<p>
+		{% if category != '0' %}
+		  <span class="categories"><i class="fa fa-folder"></i>{{ post.categories | category_links }}</span>
+		{% endif %}
+		{% if tag != '0' %}
+	    {% if category != '0' %}
+	    <span class="tags">  <i class="fa fa-tags"></i>{{ post.tags | tag_links }}</span>
+	    {% else %}
+	    <span class="tags"><i class="fa fa-tags"></i>{{ post.tags | tag_links }}</span>
+	  	{% endif %}
+	  {% endif %}
+	</p>
+	{% endif %}
+</div>

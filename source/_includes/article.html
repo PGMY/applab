@@ -1,0 +1,26 @@
+  <div class="blog-post-small">
+  {% unless page.no_header %}
+  {% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
+    {% if index %}
+      <h3><a href="{{ root_url }}{{ post.url }}">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a></h3>
+    {% endif %}
+    {% unless page.meta == false %}
+      <p><i class="fa fa-calendar"></i>
+        {% include post/date.html %}{{ time }}
+        {% if site.disqus_short_name and page.comments != false and site.disqus_show_comment_count == true %}
+         | <a href="{% if index %}{{ root_url }}{{ post.url }}{% endif %}#disqus_thread">Comments</a>
+        {% endif %}
+      </p>
+    {% endunless %}
+  {% endunless %}
+  {% if index %}
+    <p>{{ content | excerpt }}</p>
+
+    {% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
+    {% if excerpted == 'true' %}
+      <a href="{{ root_url }}{{ post.url }}" class="btn btn-primary btn-sm">Read More</a>
+    {% endif %}
+  {% else %}
+    <p>{{ content }}</p>
+  {% endif %}
+</div>
